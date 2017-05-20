@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93EC4DCE1ED0E707000839F0 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EC4DCD1ED0E707000839F0 /* AudioKit.framework */; };
+		93EC4DCF1ED0E707000839F0 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93EC4DCD1ED0E707000839F0 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9BB7787A1ECD3038006FEB60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB778791ECD3038006FEB60 /* AppDelegate.swift */; };
 		9BB7787C1ECD3038006FEB60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7787B1ECD3038006FEB60 /* ViewController.swift */; };
 		9BB7787F1ECD3038006FEB60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BB7787D1ECD3038006FEB60 /* Main.storyboard */; };
@@ -35,7 +37,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		93EC4DD01ED0E707000839F0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				93EC4DCF1ED0E707000839F0 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		93EC4DCD1ED0E707000839F0 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		9BB778761ECD3038006FEB60 /* passing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = passing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB778791ECD3038006FEB60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BB7787B1ECD3038006FEB60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93EC4DCE1ED0E707000839F0 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +99,7 @@
 		9BB7786D1ECD3038006FEB60 = {
 			isa = PBXGroup;
 			children = (
+				93EC4DCD1ED0E707000839F0 /* AudioKit.framework */,
 				9BB778781ECD3038006FEB60 /* passing */,
 				9BB7788D1ECD3038006FEB60 /* passingTests */,
 				9BB778981ECD3038006FEB60 /* passingUITests */,
@@ -141,6 +160,7 @@
 				9BB778721ECD3038006FEB60 /* Sources */,
 				9BB778731ECD3038006FEB60 /* Frameworks */,
 				9BB778741ECD3038006FEB60 /* Resources */,
+				93EC4DD01ED0E707000839F0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -422,7 +442,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = passing/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Xiwei-M.passing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -434,7 +459,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = passing/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Xiwei-M.passing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -515,6 +545,7 @@
 				9BB778A01ECD3038006FEB60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9BB778A11ECD3038006FEB60 /* Build configuration list for PBXNativeTarget "passingTests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +554,7 @@
 				9BB778A31ECD3038006FEB60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9BB778A41ECD3038006FEB60 /* Build configuration list for PBXNativeTarget "passingUITests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +563,7 @@
 				9BB778A61ECD3038006FEB60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
