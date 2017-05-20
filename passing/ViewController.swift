@@ -51,6 +51,7 @@ class ViewController: UIViewController {
     //let noteNamesWithFlats = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
     //let noteNamesCombinedSharpsFlats = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭", "A", "A♯/B♭", "B"]
     let noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"]
+    var recordedNotes: [String] = []
     
     
     override func viewDidLoad() {
@@ -67,7 +68,7 @@ class ViewController: UIViewController {
         
         AudioKit.output = silence
         AudioKit.start()
-        Timer.scheduledTimer(timeInterval: 0.1,
+        Timer.scheduledTimer(timeInterval: 0.4,
                              target: self,
                              selector: #selector(ViewController.updateUI),
                              userInfo: nil,
@@ -96,11 +97,27 @@ class ViewController: UIViewController {
                 }
             }
             let octave = Int(log2f(Float(tracker.frequency) / frequency))
-            detectedNotesLabel.text = "\(noteNames[index])\(octave)"
+            
+            // Put the note data into the form of a String
+            let currentNote: String = "\(noteNames[index])\(octave)"
+            
+            // Store the current Note ONLY if it isn't the same as the previous one
+            if (recordedNotes.count != 0) {
+                if (recordedNotes[recordedNotes.count - 1] != currentNote) {
+                    // Add the note name to the array of Recorded Notes
+                    recordedNotes.append(currentNote)
+                    
+                    // Update label for list of all notes sung
+                    detectedNotesLabel.text?.append(", \(currentNote)")
+                }
+            } else {
+                recordedNotes.append(currentNote)
+                detectedNotesLabel.text?.append(currentNote)
+            }
         }
         amplitudeLabel.text = String(format: "%0.2f", tracker.amplitude)
     }
-
+    
     
 
     override func didReceiveMemoryWarning() {
