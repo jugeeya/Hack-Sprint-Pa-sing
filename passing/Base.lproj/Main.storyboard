@@ -67,11 +67,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBC-2O-fO3">
-                                <rect key="frame" x="116" y="255" width="142" height="30"/>
+                                <rect key="frame" x="116" y="237" width="142" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Play Note: A440"/>
+                                <state key="normal" title="Play Password"/>
                                 <connections>
-                                    <action selector="playNote:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tf2-Qe-n7q"/>
+                                    <action selector="playPasswordButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c6e-rJ-Fkc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password: Incorrect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faA-ih-TzD">
@@ -88,6 +88,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHS-Op-swy">
+                                <rect key="frame" x="34" y="269" width="307" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Play Reference Pitch (First note of password)"/>
+                                <connections>
+                                    <action selector="playFirstNoteOfPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gmh-7J-gAf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>

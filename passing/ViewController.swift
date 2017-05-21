@@ -44,6 +44,23 @@ class ViewController: UIViewController {
     }
     */
     
+    @IBAction func playPasswordButton(_ sender: UIButton) {
+        if (!playingNote) {
+            playPassword()
+        }
+    }
+    
+    @IBAction func playFirstNoteOfPassword(_ sender: UIButton) {
+        
+        if (playingNote) {  // If currently playing note and will to stop it...
+            stopPlayingNote()
+            sender.setTitle("Play Reference Pitch (First note of password)", for: .normal)
+        } else {
+            playNote(Note: password[0], RaiseOctaveBy: 2)
+            sender.setTitle("Stop Playing Reference Pitch", for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,7 +70,6 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
     }
     
     // ----------------------------------- Begin AudioKit Stuff ----------------------------------- //
@@ -63,13 +79,13 @@ class ViewController: UIViewController {
     var silence: AKBooster!
     
     let noteFrequencies = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14, 30.87]
-    //let noteNamesWithSharps = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"]
-    //let noteNamesWithFlats = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
-    //let noteNamesCombinedSharpsFlats = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭", "A", "A♯/B♭", "B"]
-    let noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"]
+    let noteNamesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    let noteNamesWithFlats = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+    //let noteNamesCombinedSharpsFlats = ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"]
+    let noteNames = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     var recordedNotes: [String] = []
     var lastThreeNotesDetected: [String] = ["empty1", "empty2", "empty3"]  // Keep track of last 3 notes recorded to account for voice modulations. Note: Initializations MUST be different values
-    let password: [String] = ["G2", "B2", "D3", "B2", "G2"]
+    let password: [String] = ["G2", "B2", "D3", "G3", "B3", "D4", "G4", "D4", "B3", "G3", "D3", "B2", "G2"]
     let timeIntervalBetweenNoteSamples: Double = 0.1
     
     var playingNote: Bool = false
@@ -164,25 +180,72 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func playNote(_ sender: UIButton) {
+    // Note should be written in the form "G#2", where "G#" is the note and "2" is the octave
+    func getNotePlaybackFrequency(NoteString note: String)-> Double {
+        let noteValue: String = note.substring(to: note.index(note.endIndex, offsetBy: -1))
+        if let octave: Int = Int( note.substring(from: note.index(note.endIndex, offsetBy: -1)) ) {
+            print("Note: \(noteValue); Octave: \(octave)")
+            for i in 0 ..< noteNames.count {
+                if (noteValue == noteNamesWithFlats[i]) {
+                    var frequency = noteFrequencies[i]  // Base frequency for Octave 1. Same index as note name/value
+                    for _ in 0 ..< octave {  // Each octave doubles the frequency (frequency = base_frequency * 2^octave), where base_octave=0
+                        frequency *= 2
+                    }
+                    return frequency
+                }
+                if (noteValue == noteNamesWithSharps[i]) {
+                    var frequency = noteFrequencies[i]  // Base frequency for Octave 1. Same index as note name/value
+                    for _ in 0 ..< octave {  // Each octave doubles the frequency (frequency = base_frequency * 2^octave), where base_octave=0
+                        frequency *= 2
+                    }
+                    return frequency
+                }
+            }
+        }
+        print("Could not determine note frequency from the argument \"note\". Check that the note passed into getNotePlaybackFrequency(...) is in the form: NoteValue + Octave (i.e. \"C#2\") and that the note value actually exists (i.e. \"B#\" or \"Hb\" are not valid notes)")
+        return 0.0
+    }
+    
+    
+    func playNote(Note note: String, RaiseOctaveBy octaveMultiplier: Double) {
         AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
         notePlayer.amplitude = 0.2
-        notePlayer.frequency = 440  // A440
-        if (playingNote) {
-            
-            notePlayer.stop()
-            // Restart AudioKit to enable audio input
-            initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)
-            playingNote = false
-            sender.setTitle("Play Note: A440", for: .normal)
-        } else {
-            AudioKit.output = notePlayer
-            AudioKit.start()
-            notePlayer.start()
-            playingNote = true
-            sender.setTitle("Stop Playing", for: .normal)
+        notePlayer.frequency = getNotePlaybackFrequency(NoteString: note) * pow(2, octaveMultiplier)  // Raise by some number of octaves to make more audible
+        AudioKit.output = notePlayer
+        AudioKit.start()
+        notePlayer.start()
+        playingNote = true
+    }
+    
+    func stopPlayingNote() {
+        AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
+        notePlayer.stop()
+        initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)  // Restart AudioKit to enable audio input
+        playingNote = false
+    }
+    
+    
+    var pw_playingNoteIndex: Int = 0
+    var timer_playPassword: Timer = Timer()
+    
+    func playPassword() {
+        timer_playPassword = Timer.scheduledTimer(timeInterval: 0.5,
+                                                  target: self,
+                                                  selector: #selector(playCurrentNoteInPassword),
+                                                  userInfo: nil,
+                                                  repeats: true)
+    }
+    
+    func playCurrentNoteInPassword() {
+        playNote(Note: password[pw_playingNoteIndex], RaiseOctaveBy: 2)
+        pw_playingNoteIndex += 1
+        if (pw_playingNoteIndex >= password.count) {
+            timer_playPassword.invalidate()
+            pw_playingNoteIndex = 0  // Reset index for next time password is played
+            Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(stopPlayingNote), userInfo: nil, repeats: false)  // Turn off last note after 0.5 seconds
         }
     }
+    
     
     func checkPassword(thresholdPercentCorrect threshold: Double) -> Bool {
         
