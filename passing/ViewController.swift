@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     //let noteNamesCombinedSharpsFlats = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭", "A", "A♯/B♭", "B"]
     let noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"]
     var recordedNotes: [String] = []
-    
+    var lastThreeNotesDetected: [String] = ["empty1", "empty2", "empty3"]  // Keep track of last 3 notes recorded to account for voice modulations. Note: Initializations MUST be different values
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         
         AudioKit.output = silence
         AudioKit.start()
-        Timer.scheduledTimer(timeInterval: 0.4,
+        Timer.scheduledTimer(timeInterval: 0.1,
                              target: self,
                              selector: #selector(ViewController.updateUI),
                              userInfo: nil,
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
     }
     
     func updateUI() {
-        if tracker.amplitude > 0.1 {
+        if (tracker.amplitude > 0.1) {
             
             var frequency = Float(tracker.frequency)
             while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
@@ -101,31 +101,50 @@ class ViewController: UIViewController {
             // Put the note data into the form of a String
             let currentNote: String = "\(noteNames[index])\(octave)"
             
-            // Store the current Note ONLY if it isn't the same as the previous one
-            if (recordedNotes.count != 0) {
-                if (recordedNotes[recordedNotes.count - 1] != currentNote) {
-                    // Add the note name to the array of Recorded Notes
-                    recordedNotes.append(currentNote)
-                    
-                    // Update label for list of all notes sung
-                    detectedNotesLabel.text?.append(", \(currentNote)")
+            // Procedurally stream notes into the lastThreeNotesDetected array
+            for i in 0..<(lastThreeNotesDetected.count - 1) {
+                lastThreeNotesDetected[i] = lastThreeNotesDetected[i+1]
+            }
+            lastThreeNotesDetected[lastThreeNotesDetected.count - 1] = currentNote
+            
+            // The note must have shown up 3x in the last 3 samples for it to be confirmed as a correct note and added to recordedNotes (to prevent false readings due to voice fluctuations)
+            var noteCount: Int = 0
+            for i in lastThreeNotesDetected {
+                if (currentNote == i) {
+                    noteCount += 1
                 }
-            } else {
-                recordedNotes.append(currentNote)
-                detectedNotesLabel.text?.append(currentNote)
+            }
+            
+            if (noteCount == 3) {
+                // Store the current Note ONLY if it isn't the same as the previous one
+                if (recordedNotes.count != 0) {
+                    
+                    // Test if the note being sung was already added to recordedNotes
+                    if (recordedNotes[recordedNotes.count - 1] != currentNote) {
+                        
+                        // Add the note name to the array of Recorded Notes
+                        recordedNotes.append(currentNote)
+                        
+                        // Update label for list of all notes sung
+                        detectedNotesLabel.text?.append(", \(currentNote)")
+                    }
+                } else {
+                    recordedNotes.append(currentNote)
+                    detectedNotesLabel.text?.append(currentNote)
+                }
             }
         }
-        amplitudeLabel.text = String(format: "%0.2f", tracker.amplitude)
+        amplitudeLabel.text = String("Amplitude: \(tracker.amplitude)")
     }
     
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-   }
+}
 
 
