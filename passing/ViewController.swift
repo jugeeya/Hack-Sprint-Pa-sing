@@ -42,6 +42,28 @@ class ViewController: UIViewController {
         print (Processed.text)
     }
     */
+    
+    
+    var playingNote: Bool = false
+    let notePlayer: AKOscillator = AKOscillator()
+    
+    @IBAction func playNote(_ sender: UIButton) {
+        AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
+        notePlayer.amplitude = 0.1
+        notePlayer.frequency = 440  // A440
+        if (playingNote) {
+            notePlayer.stop()
+            playingNote = false
+            sender.setTitle("Play Note: A440", for: .normal)
+        } else {
+            AudioKit.output = notePlayer
+            AudioKit.start()
+            notePlayer.start()
+            playingNote = true
+            sender.setTitle("Stop Playing", for: .normal)
+        }
+    }
+    
     var mic: AKMicrophone!
     var tracker: AKFrequencyTracker!
     var silence: AKBooster!
@@ -61,6 +83,7 @@ class ViewController: UIViewController {
         mic = AKMicrophone()
         tracker = AKFrequencyTracker(mic)
         silence = AKBooster(tracker, gain: 0)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
