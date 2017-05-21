@@ -68,46 +68,11 @@ class ViewController: UIViewController {
     let noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"]
     var recordedNotes: [String] = []
     var lastThreeNotesDetected: [String] = ["empty1", "empty2", "empty3"]  // Keep track of last 3 notes recorded to account for voice modulations. Note: Initializations MUST be different values
-    let timeIntervalBetweenNoteSamples: Double = 0.4
+    let timeIntervalBetweenNoteSamples: Double = 0.1
     
     var playingNote: Bool = false
     let notePlayer: AKOscillator = AKOscillator()
     
-    
-    func initializeAudioKitForMicInput(timeBetweenNotes timeInterval: Double) {
-        AKSettings.audioInputEnabled = true
-        mic = AKMicrophone()
-        tracker = AKFrequencyTracker(mic)
-        silence = AKBooster(tracker, gain: 0)
-        AudioKit.output = silence
-        AudioKit.start()
-        Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
-                             target: self,
-                             selector: #selector(ViewController.updateUI),
-                             userInfo: nil,
-                             repeats: true)
-    }
-    
-    
-    @IBAction func playNote(_ sender: UIButton) {
-        AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
-        notePlayer.amplitude = 0.2
-        notePlayer.frequency = 440  // A440
-        if (playingNote) {
-            
-            notePlayer.stop()
-            // Restart AudioKit to enable audio input
-            initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)
-            playingNote = false
-            sender.setTitle("Play Note: A440", for: .normal)
-        } else {
-            AudioKit.output = notePlayer
-            AudioKit.start()
-            notePlayer.start()
-            playingNote = true
-            sender.setTitle("Stop Playing", for: .normal)
-        }
-    }
     
     
     func updateUI() {
@@ -169,12 +134,44 @@ class ViewController: UIViewController {
                     // Update label for list of all notes sung
                     detectedNotesLabel.text?.append(", \(currentNote)")
                 }
-            } else {
-                recordedNotes.append(currentNote)
-                detectedNotesLabel.text?.append(currentNote)
             }
         }
         amplitudeLabel.text = String("Amplitude: \(tracker.amplitude)")
+    }
+    
+    func initializeAudioKitForMicInput(timeBetweenNotes timeInterval: Double) {
+        AKSettings.audioInputEnabled = true
+        mic = AKMicrophone()
+        tracker = AKFrequencyTracker(mic)
+        silence = AKBooster(tracker, gain: 0)
+        AudioKit.output = silence
+        AudioKit.start()
+        Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
+                             target: self,
+                             selector: #selector(ViewController.updateUI),
+                             userInfo: nil,
+                             repeats: true)
+    }
+    
+    
+    @IBAction func playNote(_ sender: UIButton) {
+        AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
+        notePlayer.amplitude = 0.2
+        notePlayer.frequency = 440  // A440
+        if (playingNote) {
+            
+            notePlayer.stop()
+            // Restart AudioKit to enable audio input
+            initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)
+            playingNote = false
+            sender.setTitle("Play Note: A440", for: .normal)
+        } else {
+            AudioKit.output = notePlayer
+            AudioKit.start()
+            notePlayer.start()
+            playingNote = true
+            sender.setTitle("Stop Playing", for: .normal)
+        }
     }
     
     // ----------------------------------- End of AudioKit Stuff ----------------------------------- //
