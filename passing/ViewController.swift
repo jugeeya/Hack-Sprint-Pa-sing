@@ -9,6 +9,7 @@ class ViewController: UIViewController {
     
     
     @IBOutlet weak var Processed: UILabel!
+    @IBOutlet weak var passwordStatusLabel: UILabel!
     @IBOutlet weak var amplitudeLabel: UILabel!
     @IBOutlet weak var detectedNotesLabel: UILabel!
     
@@ -68,6 +69,7 @@ class ViewController: UIViewController {
     let noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"]
     var recordedNotes: [String] = []
     var lastThreeNotesDetected: [String] = ["empty1", "empty2", "empty3"]  // Keep track of last 3 notes recorded to account for voice modulations. Note: Initializations MUST be different values
+    let password: [String] = ["G2", "B2", "D3", "B2", "G2"]
     let timeIntervalBetweenNoteSamples: Double = 0.1
     
     var playingNote: Bool = false
@@ -134,9 +136,17 @@ class ViewController: UIViewController {
                     // Update label for list of all notes sung
                     detectedNotesLabel.text?.append(", \(currentNote)")
                 }
+                
+                // Check the recorded notes and see if they match the password
+                let passwordCorrect: Bool = checkPassword(thresholdPercentCorrect: 1.0)
+                if (passwordCorrect) {
+                    passwordStatusLabel.text = "Password: CORRECT!"
+                }
+                
             }
         }
         amplitudeLabel.text = String("Amplitude: \(tracker.amplitude)")
+        
     }
     
     func initializeAudioKitForMicInput(timeBetweenNotes timeInterval: Double) {
@@ -172,6 +182,32 @@ class ViewController: UIViewController {
             playingNote = true
             sender.setTitle("Stop Playing", for: .normal)
         }
+    }
+    
+    func checkPassword(thresholdPercentCorrect threshold: Double) -> Bool {
+        
+        // If the user has recorded a sufficient number of notes to do the comparison, check the password
+        if (recordedNotes.count >= password.count) {
+            
+            // Check the last "n" notes recorded (where "n" is the # notes in the password) to see if they match the password
+            let numberOfNotesInPassword = password.count
+            var recordedNotes_PWIndex = recordedNotes.count - numberOfNotesInPassword  // Index "n" notes from the end of the array
+            var num_matchingNotes: Int = 0
+            for i in 0 ..< numberOfNotesInPassword {
+                if (recordedNotes[recordedNotes_PWIndex] == password[i]) {
+                    num_matchingNotes += 1
+                }
+                recordedNotes_PWIndex += 1
+            }
+            
+            let percentMatched: Double = Double(num_matchingNotes) / Double(numberOfNotesInPassword)
+            
+            if (percentMatched >= threshold) {
+                return true
+            }
+            
+        }
+        return false
     }
     
     // ----------------------------------- End of AudioKit Stuff ----------------------------------- //
