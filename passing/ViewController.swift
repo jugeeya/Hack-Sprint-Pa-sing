@@ -85,7 +85,7 @@ class ViewController: UIViewController {
     let noteNames = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     var recordedNotes: [String] = []
     var lastThreeNotesDetected: [String] = ["empty1", "empty2", "empty3"]  // Keep track of last 3 notes recorded to account for voice modulations. Note: Initializations MUST be different values
-    let password: [String] = ["G2", "B2", "D3", "G3", "B3", "D4", "G4", "D4", "B3", "G3", "D3", "B2", "G2"]
+    let password: [String] = ["G2", "B2", "D3"]
     let timeIntervalBetweenNoteSamples: Double = 0.1
     
     var playingNote: Bool = false
