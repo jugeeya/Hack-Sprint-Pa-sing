@@ -5,7 +5,7 @@ import AudioKit
 
 class ViewController: UIViewController {
 
-    var firstTime = 0;
+    var firstTime: Bool = true;
     
     
     @IBOutlet weak var Processed: UILabel!
@@ -22,9 +22,9 @@ class ViewController: UIViewController {
         let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in
             print("You've pressed OK button");}
         alertController.addAction(OKAction)
-        if (firstTime == 0)//global var
+        if (firstTime)//global var
         {
-            firstTime = 1;
+            firstTime = false;
             theButton.isHidden = true;
 
         }
@@ -280,6 +280,12 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         recordedNotes = []
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        AKSettings.audioInputEnabled = false
+        AudioKit.stop()
     }
     
     

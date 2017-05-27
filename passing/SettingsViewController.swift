@@ -10,7 +10,31 @@ import UIKit
 
 
 class SettingsViewController: UIViewController {
-
+    
+    var firstTime: Bool = false
+    
+    // ###########################################################
+    // #################### READ THIS PLEASE #####################
+    // ###########################################################
+    // ##                                                       ##
+    // ## Once the user finishes setting up a password and      ##
+    // ## clicks "Save" or whatever, run these lines of code:   ##
+    // ##                                                       ##
+    // ## UserDefaults.standard.set(false, forKey: "firstTime") ##
+    // ## self.firstTime = false                                ##
+    // ##                                                       ##
+    // ## This will keep track of the fact that the user has    ##
+    // ## already set up a password so that he/she will be      ##
+    // ## directed to the correct launch screen next time       ##
+    // ## he/she opens the app!                                 ##
+    // ##                                                       ##
+    // ## Thanks!                                               ##
+    // ## -Grant                                                ##
+    // ##                                                       ##
+    // ###########################################################
+    // #################### READ THIS PLEASE #####################
+    // ###########################################################
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

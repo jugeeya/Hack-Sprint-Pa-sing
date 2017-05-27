@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93294C581ED684CF005BD243 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93294C571ED684CF005BD243 /* InfoViewController.swift */; };
+		93294C5A1ED6852B005BD243 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93294C591ED6852B005BD243 /* AddAccountViewController.swift */; };
+		93EB29011ED678D40022AEDE /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29001ED678D40022AEDE /* DummyViewController.swift */; };
+		93EB29031ED67A2C0022AEDE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */; };
+		93EB29051ED67F080022AEDE /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29041ED67F080022AEDE /* AccountViewController.swift */; };
 		93EC4DCE1ED0E707000839F0 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EC4DCD1ED0E707000839F0 /* AudioKit.framework */; };
 		93EC4DCF1ED0E707000839F0 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93EC4DCD1ED0E707000839F0 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9BB7787A1ECD3038006FEB60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB778791ECD3038006FEB60 /* AppDelegate.swift */; };
@@ -52,6 +57,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		93294C571ED684CF005BD243 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		93294C591ED6852B005BD243 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
+		93EB29001ED678D40022AEDE /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
+		93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		93EB29041ED67F080022AEDE /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		93EC4DCD1ED0E707000839F0 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		9BB778761ECD3038006FEB60 /* passing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = passing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB778791ECD3038006FEB60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +133,11 @@
 				9BB778791ECD3038006FEB60 /* AppDelegate.swift */,
 				9BB7787B1ECD3038006FEB60 /* ViewController.swift */,
 				9BB7787D1ECD3038006FEB60 /* Main.storyboard */,
+				93294C591ED6852B005BD243 /* AddAccountViewController.swift */,
+				93294C571ED684CF005BD243 /* InfoViewController.swift */,
+				93EB29041ED67F080022AEDE /* AccountViewController.swift */,
+				93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */,
+				93EB29001ED678D40022AEDE /* DummyViewController.swift */,
 				9BB778A91ECD4554006FEB60 /* Alerts.swift */,
 				9BB778A71ECD33F5006FEB60 /* TerminalProcessing.swift */,
 				9BB778801ECD3038006FEB60 /* Assets.xcassets */,
@@ -286,9 +301,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BB778A81ECD33F5006FEB60 /* TerminalProcessing.swift in Sources */,
+				93294C5A1ED6852B005BD243 /* AddAccountViewController.swift in Sources */,
 				9BB7787C1ECD3038006FEB60 /* ViewController.swift in Sources */,
+				93EB29051ED67F080022AEDE /* AccountViewController.swift in Sources */,
 				9BB778AA1ECD4554006FEB60 /* Alerts.swift in Sources */,
+				93EB29011ED678D40022AEDE /* DummyViewController.swift in Sources */,
 				9BB7787A1ECD3038006FEB60 /* AppDelegate.swift in Sources */,
+				93294C581ED684CF005BD243 /* InfoViewController.swift in Sources */,
+				93EB29031ED67A2C0022AEDE /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

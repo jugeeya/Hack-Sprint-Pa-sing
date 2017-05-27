@@ -11,6 +11,7 @@ import UIKit
 
 class AddAccountViewController: UIViewController {
     
+    @IBOutlet var accountPicker: [UIPickerView]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
