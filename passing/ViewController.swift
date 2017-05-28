@@ -81,12 +81,11 @@ class ViewController: UIViewController {
     let noteFrequencies = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14, 30.87]
     let noteNamesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     let noteNamesWithFlats = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
-    //let noteNamesCombinedSharpsFlats = ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"]
     let noteNames = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     var recordedNotes: [String] = []
     var lastThreeNotesDetected: [String] = ["empty1", "empty2", "empty3"]  // Keep track of last 3 notes recorded to account for voice modulations. Note: Initializations MUST be different values
-    let password: [String] = ["G2", "B2", "D3"]
-    let timeIntervalBetweenNoteSamples: Double = 0.1
+    let password: [String] = ["C#2", "Ab2", "C#3"]  // G2, B2, D3
+    let timeIntervalBetweenNoteSamples: Double = 0.05
     
     var playingNote: Bool = false
     let notePlayer: AKOscillator = AKOscillator()
