@@ -28,11 +28,13 @@ class DummyViewController: UIViewController {
                 performSegue(withIdentifier: "NotFirstTime", sender: nil)
                 print("Performing segue from DummyVC to main VC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
             } else {
+                UserDefaults.standard.set(false, forKey: "firstTime")
                 self.isUsersFirstTime = true
                 performSegue(withIdentifier: "FirstTime", sender: nil)
                 print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
             }
         } else {
+            UserDefaults.standard.set(false, forKey: "firstTime")
             performSegue(withIdentifier: "FirstTime", sender: nil)
             print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
         }

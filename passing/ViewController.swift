@@ -157,6 +157,7 @@ class ViewController: UIViewController {
                 let passwordCorrect: Bool = checkPassword(thresholdPercentCorrect: 1.0)
                 if (passwordCorrect) {
                     passwordStatusLabel.text = "Password: CORRECT!"
+                    performSegue(withIdentifier: "passwordAccepted", sender: nil)
                 }
                 
             }
@@ -165,6 +166,9 @@ class ViewController: UIViewController {
         
     }
     
+    
+    var timer_audioInputInterval: Timer = Timer()
+    
     func initializeAudioKitForMicInput(timeBetweenNotes timeInterval: Double) {
         AKSettings.audioInputEnabled = true
         mic = AKMicrophone()
@@ -172,11 +176,16 @@ class ViewController: UIViewController {
         silence = AKBooster(tracker, gain: 0)
         AudioKit.output = silence
         AudioKit.start()
-        Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
+        timer_audioInputInterval = Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
                              target: self,
                              selector: #selector(ViewController.updateUI),
                              userInfo: nil,
                              repeats: true)
+    }
+    
+    func stopAudioKitMicInput() {
+        timer_audioInputInterval.invalidate()
+        AudioKit.stop()
     }
     
     
@@ -208,7 +217,7 @@ class ViewController: UIViewController {
     
     
     func playNote(Note note: String, RaiseOctaveBy octaveMultiplier: Double) {
-        AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
+        stopAudioKitMicInput()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
         notePlayer.amplitude = 0.2
         notePlayer.frequency = getNotePlaybackFrequency(NoteString: note) * pow(2, octaveMultiplier)  // Raise by some number of octaves to make more audible
         AudioKit.output = notePlayer
@@ -285,7 +294,7 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         AKSettings.audioInputEnabled = false
-        AudioKit.stop()
+        stopAudioKitMicInput()
     }
     
     

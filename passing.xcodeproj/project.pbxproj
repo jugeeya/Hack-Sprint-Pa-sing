@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		93294C581ED684CF005BD243 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93294C571ED684CF005BD243 /* InfoViewController.swift */; };
 		93294C5A1ED6852B005BD243 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93294C591ED6852B005BD243 /* AddAccountViewController.swift */; };
+		9359C97A1EDAB31B002FB90A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9359C9791EDAB31B002FB90A /* AudioKit.framework */; };
+		9359C97B1EDAB31B002FB90A /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9359C9791EDAB31B002FB90A /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		93EB29011ED678D40022AEDE /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29001ED678D40022AEDE /* DummyViewController.swift */; };
 		93EB29031ED67A2C0022AEDE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */; };
 		93EB29051ED67F080022AEDE /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29041ED67F080022AEDE /* AccountViewController.swift */; };
-		93EC4DCE1ED0E707000839F0 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EC4DCD1ED0E707000839F0 /* AudioKit.framework */; };
-		93EC4DCF1ED0E707000839F0 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93EC4DCD1ED0E707000839F0 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9BB7787A1ECD3038006FEB60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB778791ECD3038006FEB60 /* AppDelegate.swift */; };
 		9BB7787C1ECD3038006FEB60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7787B1ECD3038006FEB60 /* ViewController.swift */; };
 		9BB7787F1ECD3038006FEB60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BB7787D1ECD3038006FEB60 /* Main.storyboard */; };
@@ -49,7 +49,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				93EC4DCF1ED0E707000839F0 /* AudioKit.framework in Embed Frameworks */,
+				9359C97B1EDAB31B002FB90A /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,10 +59,10 @@
 /* Begin PBXFileReference section */
 		93294C571ED684CF005BD243 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		93294C591ED6852B005BD243 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
+		9359C9791EDAB31B002FB90A /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		93EB29001ED678D40022AEDE /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		93EB29041ED67F080022AEDE /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		93EC4DCD1ED0E707000839F0 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		9BB778761ECD3038006FEB60 /* passing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = passing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB778791ECD3038006FEB60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BB7787B1ECD3038006FEB60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93EC4DCE1ED0E707000839F0 /* AudioKit.framework in Frameworks */,
+				9359C97A1EDAB31B002FB90A /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +109,7 @@
 		9BB7786D1ECD3038006FEB60 = {
 			isa = PBXGroup;
 			children = (
-				93EC4DCD1ED0E707000839F0 /* AudioKit.framework */,
+				9359C9791EDAB31B002FB90A /* AudioKit.framework */,
 				9BB778781ECD3038006FEB60 /* passing */,
 				9BB7788D1ECD3038006FEB60 /* passingTests */,
 				9BB778981ECD3038006FEB60 /* passingUITests */,
@@ -234,6 +234,7 @@
 				TargetAttributes = {
 					9BB778751ECD3038006FEB60 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = ZM8P843SA7;
 						ProvisioningStyle = Automatic;
 					};
 					9BB778891ECD3038006FEB60 = {
@@ -462,6 +463,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZM8P843SA7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -469,8 +472,9 @@
 				INFOPLIST_FILE = passing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Xiwei-M.passing";
+				PRODUCT_BUNDLE_IDENTIFIER = "Grant-Schulte.passing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -479,6 +483,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZM8P843SA7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -486,8 +492,9 @@
 				INFOPLIST_FILE = passing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Xiwei-M.passing";
+				PRODUCT_BUNDLE_IDENTIFIER = "Grant-Schulte.passing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
