@@ -259,6 +259,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="accountTableView" destination="jTj-os-7bD" id="RWH-VU-6up"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LT7-fc-r5k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

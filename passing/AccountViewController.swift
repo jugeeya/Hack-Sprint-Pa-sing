@@ -9,10 +9,12 @@
 import UIKit
 
 
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     
     // Array containing all of the user's accounts
     var accounts: [Account] = []
+    @IBOutlet weak var accountTableView: UITableView!
     
     @IBAction func printAccountNumButton(_ sender: Any) {
         print(accounts.count)
@@ -20,6 +22,9 @@ class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        accountTableView.dataSource = self
+        accountTableView.delegate = self
         
     }
     
@@ -41,6 +46,22 @@ class AccountViewController: UIViewController {
         if let sourceVC = sender.source as? InfoViewController {
             accounts.append(sourceVC.account)
         }
+        
+        // Sort the array primarily by account type and then secondarily by username
+        accounts.sort(by: { (acc1: Account, acc2: Account) -> Bool in
+            if (acc1.type < acc2.type) {
+                return true
+            } else if (acc1.type > acc2.type) {
+                return false
+            } else { // acc1.type == acc2.type
+                if (acc1.username < acc2.username) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        })
+        accountTableView.reloadData()
     }
     
     
@@ -59,6 +80,9 @@ class AccountViewController: UIViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
         
         // Code here to make cell display the correct (1) Account Type, (2) Username, and (3) Image...
+        cell.textLabel?.text = accounts[indexPath.row].type
+        cell.detailTextLabel?.text = accounts[indexPath.row].username
+        cell.imageView?.image = accounts[indexPath.row].image
         
         return cell
         
