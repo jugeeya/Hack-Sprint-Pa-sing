@@ -30,4 +30,8 @@ class InfoViewController: UIViewController {
     }
     
     
+    @IBAction func openURLButton(_ sender: UIButton) {
+        account.openURL(viewController: self)
+    }
+    
 }

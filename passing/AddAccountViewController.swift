@@ -140,7 +140,7 @@ class AddAccountViewController: UIViewController, UITableViewDelegate, UITableVi
             accountTypeCell.isUserInteractionEnabled = false
             accountTypeCell.textField.text = "myUCLA"
             urlCell.isUserInteractionEnabled = false
-            urlCell.textField.text = "my.ucla.edu"
+            urlCell.textField.text = "http://my.ucla.edu"
             break
             
         default:
@@ -215,6 +215,8 @@ class AddAccountViewController: UIViewController, UITableViewDelegate, UITableVi
             if usernameCell.textField.text != "" {
                 if passwordCell.textField.text != "" {
                     performSegue(withIdentifier: "accountCreated", sender: nil)
+                } else {
+                    self.present(alertController, animated: true, completion: nil)
                 }
             } else {
                 self.present(alertController, animated: true, completion: nil)

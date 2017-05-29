@@ -21,7 +21,7 @@ class DummyViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        /*
         if let firstTime = UserDefaults.standard.value(forKey: "firstTime") as? Bool {
             if ( firstTime == false ) {
                 self.isUsersFirstTime = false
@@ -37,12 +37,13 @@ class DummyViewController: UIViewController {
             UserDefaults.standard.set(false, forKey: "firstTime")
             performSegue(withIdentifier: "FirstTime", sender: nil)
             print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
-        }
+        }*/
         
         /* Remove any and all user defaults previously added: */
-         // UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-         // UserDefaults.standard.synchronize()
-         // print("Cleared user defaults. firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime")))")
+          UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+          UserDefaults.standard.synchronize()
+          print("Cleared user defaults. firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime")))")
+        performSegue(withIdentifier: "NotFirstTime", sender: nil)
         
     }
     

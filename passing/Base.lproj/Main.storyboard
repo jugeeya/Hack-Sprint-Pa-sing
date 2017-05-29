@@ -389,6 +389,14 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3aN-cf-ldQ">
+                                <rect key="frame" x="102" y="578" width="170" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="OpenURLButton"/>
+                                <connections>
+                                    <action selector="openURLButton:" destination="7Hx-Qh-ozB" eventType="touchUpInside" id="zZY-RZ-x5G"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -396,17 +404,18 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lLv-xh-oLx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ym5-YR-NdI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1506" y="520"/>
+            <point key="canvasLocation" x="1505" y="520"/>
         </scene>
     </scenes>
     <resources>
         <image name="CancelButton" width="393" height="160"/>
         <image name="DefaultAccountIcon" width="512" height="512"/>
+        <image name="OpenURLButton" width="393" height="160"/>
         <image name="SaveButton" width="393" height="160"/>
         <image name="blackScreen" width="1366" height="738"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jdE-xX-Avr"/>
-        <segue reference="4pW-Q2-eLf"/>
+        <segue reference="qTg-Qg-w4j"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -38,9 +38,20 @@ class Account {
         image = #imageLiteral(resourceName: "DefaultAccountIcon")
     }
     
-    func openURL() {
+    func openURL(viewController: UIViewController) {
         if (url != nil) {
-            UIApplication.shared.openURL(url!)
+            //if UIApplication.shared.canOpenURL(url!) {
+                UIApplication.shared.openURL(url!)
+            /*} else {
+                print("Cannot open URL because it is not a valid URL")
+            }*/
+        } else {
+            let alertController = UIAlertController(title: "Open URL", message: "Error: It appears that no URL was provided for this account type.", preferredStyle: UIAlertControllerStyle.alert)
+            let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in
+                print("Cannot open URL because account.url is nil");}
+            alertController.addAction(OKAction)
+            viewController.present(alertController, animated: true, completion: nil)
+            
         }
     }
     
