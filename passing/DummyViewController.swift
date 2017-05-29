@@ -39,11 +39,10 @@ class DummyViewController: UIViewController {
             print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
         }
         
-        /* Remove any and all user defaults previously added:
+        /* Remove any and all user defaults previously added: */
          // UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
          // UserDefaults.standard.synchronize()
          // print("Cleared user defaults. firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime")))")
-        */
         
     }
     

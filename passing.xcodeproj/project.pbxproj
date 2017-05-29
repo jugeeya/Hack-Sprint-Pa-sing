@@ -11,6 +11,7 @@
 		93294C5A1ED6852B005BD243 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93294C591ED6852B005BD243 /* AddAccountViewController.swift */; };
 		9359C97A1EDAB31B002FB90A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9359C9791EDAB31B002FB90A /* AudioKit.framework */; };
 		9359C97B1EDAB31B002FB90A /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9359C9791EDAB31B002FB90A /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		935A80531EDB859E00A226BE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A80521EDB859E00A226BE /* Account.swift */; };
 		93EB29011ED678D40022AEDE /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29001ED678D40022AEDE /* DummyViewController.swift */; };
 		93EB29031ED67A2C0022AEDE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */; };
 		93EB29051ED67F080022AEDE /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB29041ED67F080022AEDE /* AccountViewController.swift */; };
@@ -60,6 +61,7 @@
 		93294C571ED684CF005BD243 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		93294C591ED6852B005BD243 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
 		9359C9791EDAB31B002FB90A /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		935A80521EDB859E00A226BE /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		93EB29001ED678D40022AEDE /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		93EB29041ED67F080022AEDE /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				93294C591ED6852B005BD243 /* AddAccountViewController.swift */,
 				93294C571ED684CF005BD243 /* InfoViewController.swift */,
 				93EB29041ED67F080022AEDE /* AccountViewController.swift */,
+				935A80521EDB859E00A226BE /* Account.swift */,
 				93EB29021ED67A2C0022AEDE /* SettingsViewController.swift */,
 				93EB29001ED678D40022AEDE /* DummyViewController.swift */,
 				9BB778A91ECD4554006FEB60 /* Alerts.swift */,
@@ -306,6 +309,7 @@
 				9BB7787C1ECD3038006FEB60 /* ViewController.swift in Sources */,
 				93EB29051ED67F080022AEDE /* AccountViewController.swift in Sources */,
 				9BB778AA1ECD4554006FEB60 /* Alerts.swift in Sources */,
+				935A80531EDB859E00A226BE /* Account.swift in Sources */,
 				93EB29011ED678D40022AEDE /* DummyViewController.swift in Sources */,
 				9BB7787A1ECD3038006FEB60 /* AppDelegate.swift in Sources */,
 				93294C581ED684CF005BD243 /* InfoViewController.swift in Sources */,

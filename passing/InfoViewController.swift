@@ -11,6 +11,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
+    var account: Account = Account()
     
     override func viewDidLoad() {
         super.viewDidLoad()
