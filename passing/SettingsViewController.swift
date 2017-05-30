@@ -313,14 +313,20 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func recordSongPassword(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Song Password Creation", message: "Press 'Okay' and sing your password using the microphone. Press the 'Stop Recording' button when you have finished.", preferredStyle: UIAlertControllerStyle.alert)
+        var shouldInit: Bool = false
+        let alertController = UIAlertController(title: "Song Password Creation", message: "Sing your password using the microphone. Press the 'Stop Recording' button when you have finished.", preferredStyle: UIAlertControllerStyle.alert)
         self.present(alertController, animated: true, completion: nil)
-        let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in
-            self.initializeAudioKitForMicInput(timeBetweenNotes: 0.05)
-            print("Did perform initialization!")}
+        let OKAction = UIAlertAction(title: "Okay", style:.default) { (action:UIAlertAction) in
+            shouldInit = true
+            }
         alertController.addAction(OKAction)
+        self.recordedNotes = []
+        if shouldInit {
+            self.initializeAudioKitForMicInput(timeBetweenNotes: 0.05)
+        }
     }
     @IBAction func stopRecordingPassword(_ sender: UIButton) {
+        self.password = self.recordedNotes
         self.stopAudioKitMicInput()
     }
     
