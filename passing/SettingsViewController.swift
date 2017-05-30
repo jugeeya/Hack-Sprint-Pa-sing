@@ -145,6 +145,7 @@ class SettingsViewController: UIViewController {
     let timeIntervalBetweenNoteSamples: Double = 0.05
     
     var playingNote: Bool = false
+    var audioKitIsInitialized: Bool = false
     let notePlayer: AKOscillator = AKOscillator()
     
     
@@ -219,22 +220,28 @@ class SettingsViewController: UIViewController {
     var timer_audioInputInterval: Timer = Timer()
     
     func initializeAudioKitForMicInput(timeBetweenNotes timeInterval: Double) {
-        AKSettings.audioInputEnabled = true
-        mic = AKMicrophone()
-        tracker = AKFrequencyTracker(mic)
-        silence = AKBooster(tracker, gain: 0)
-        AudioKit.output = silence
-        AudioKit.start()
-        timer_audioInputInterval = Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
-                                                        target: self,
-                                                        selector: #selector(ViewController.updateUI),
-                                                        userInfo: nil,
-                                                        repeats: true)
+        if (!self.audioKitIsInitialized) {
+            AKSettings.audioInputEnabled = true
+            mic = AKMicrophone()
+            tracker = AKFrequencyTracker(mic)
+            silence = AKBooster(tracker, gain: 0)
+            AudioKit.output = silence
+            AudioKit.start()
+            audioKitIsInitialized = true
+            print("Initializing AudioKit")
+            timer_audioInputInterval = Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
+                                                            target: self,
+                                                            selector: #selector(ViewController.updateUI),
+                                                            userInfo: nil,
+                                                            repeats: true)
+        }
     }
     
     func stopAudioKitMicInput() {
         timer_audioInputInterval.invalidate()
         AudioKit.stop()
+        audioKitIsInitialized = false
+        print("Stopping AudioKit for mic input")
     }
     
     
@@ -273,11 +280,15 @@ class SettingsViewController: UIViewController {
         AudioKit.start()
         notePlayer.start()
         playingNote = true
+        audioKitIsInitialized = true
+        print("Playing note using AudioKit")
     }
     
     func stopPlayingNote() {
         AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
         notePlayer.stop()
+        print("Stopping AudioKit for note playing")
+        audioKitIsInitialized = false
         initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)  // Restart AudioKit to enable audio input
         playingNote = false
     }
@@ -295,12 +306,16 @@ class SettingsViewController: UIViewController {
     }
     
     func playCurrentNoteInPassword() {
-        playNote(Note: password[pw_playingNoteIndex], RaiseOctaveBy: 2)
-        pw_playingNoteIndex += 1
-        if (pw_playingNoteIndex >= password.count) {
+        if (password.count > 0) {
+            playNote(Note: password[pw_playingNoteIndex], RaiseOctaveBy: 2)
+            pw_playingNoteIndex += 1
+            if (pw_playingNoteIndex >= password.count) {
+                timer_playPassword.invalidate()
+                pw_playingNoteIndex = 0  // Reset index for next time password is played
+                Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(stopPlayingNote), userInfo: nil, repeats: false)  // Turn off last note after 0.5 seconds
+            }
+        } else {
             timer_playPassword.invalidate()
-            pw_playingNoteIndex = 0  // Reset index for next time password is played
-            Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(stopPlayingNote), userInfo: nil, repeats: false)  // Turn off last note after 0.5 seconds
         }
     }
     
@@ -312,32 +327,46 @@ class SettingsViewController: UIViewController {
         textPassword = self.textPasswordInput.text!
     }
     
+    
+    var recordingPassword: Bool = false
+    
     @IBAction func recordSongPassword(_ sender: UIButton) {
-        var shouldInit: Bool = false
         let alertController = UIAlertController(title: "Song Password Creation", message: "Sing your password using the microphone. Press the 'Stop Recording' button when you have finished.", preferredStyle: UIAlertControllerStyle.alert)
         self.present(alertController, animated: true, completion: nil)
         let OKAction = UIAlertAction(title: "Okay", style:.default) { (action:UIAlertAction) in
-            shouldInit = true
+            if (!self.audioKitIsInitialized) {
+                self.initializeAudioKitForMicInput(timeBetweenNotes: 0.05)
+            }
             }
         alertController.addAction(OKAction)
         self.recordedNotes = []
-        if shouldInit {
-            self.initializeAudioKitForMicInput(timeBetweenNotes: 0.05)
-        }
+        recordingPassword = true
     }
     @IBAction func stopRecordingPassword(_ sender: UIButton) {
         self.password = self.recordedNotes
         self.stopAudioKitMicInput()
+        recordingPassword = false
     }
     
     
     @IBAction func playbackSongPassword(_ sender: UIButton) {
-        playPassword(noteDuration: 0.5)
+        if (!recordingPassword) {
+            playPassword(noteDuration: 0.5)
+        }
     }
     
     @IBAction func doneButton(_ sender: UIButton) {
-        UserDefaults.standard.set(false, forKey: "firstTime")
-        self.firstTime = false
+        if (password.count > 0) {
+            UserDefaults.standard.set(false, forKey: "firstTime")
+            self.firstTime = false
+        } else {
+            let alertController = UIAlertController(title: "Song Password Creation", message: "No recognizable notes have been recorded yet. Please record a password by singing into the microphone.", preferredStyle: UIAlertControllerStyle.alert)
+            self.present(alertController, animated: true, completion: nil)
+            let OKAction = UIAlertAction(title: "Okay", style:.default) { (action:UIAlertAction) in
+                self.initializeAudioKitForMicInput(timeBetweenNotes: 0.05)
+            }
+            alertController.addAction(OKAction)
+        }
     }
 }
 
