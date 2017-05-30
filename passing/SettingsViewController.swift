@@ -93,6 +93,7 @@ class SettingsViewController: UIViewController {
     
     var firstTime: Bool = false
     
+    @IBOutlet weak var textPasswordInput: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -303,6 +304,35 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    
+    var textPassword = ""
+    
+    
+    @IBAction func getTextPasswordInput(_ sender: UITextField) {
+        textPassword = self.textPasswordInput.text!
+    }
+    
+    @IBAction func recordSongPassword(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Song Password Creation", message: "Press 'Okay' and sing your password using the microphone. Press the 'Stop Recording' button when you have finished.", preferredStyle: UIAlertControllerStyle.alert)
+        self.present(alertController, animated: true, completion: nil)
+        let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in
+            self.initializeAudioKitForMicInput(timeBetweenNotes: 0.05)
+            print("Did perform initialization!")}
+        alertController.addAction(OKAction)
+    }
+    @IBAction func stopRecordingPassword(_ sender: UIButton) {
+        self.stopAudioKitMicInput()
+    }
+    
+    
+    @IBAction func playbackSongPassword(_ sender: UIButton) {
+        playPassword(noteDuration: 0.5)
+    }
+    
+    @IBAction func doneButton(_ sender: UIButton) {
+        UserDefaults.standard.set(false, forKey: "firstTime")
+        self.firstTime = false
+    }
 }
 
 
