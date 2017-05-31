@@ -247,10 +247,12 @@ class SettingsViewController: UIViewController {
     }
     
     func stopAudioKitMicInput() {
-        timer_audioInputInterval.invalidate()
-        stopAudioKit()
-        audioKitIsInitialized = false
-        print("Stopping AudioKit for mic input")
+        if (self.audioKitIsInitialized) {
+            timer_audioInputInterval.invalidate()
+            stopAudioKit()
+            audioKitIsInitialized = false
+            print("Stopping AudioKit for mic input")
+        }
     }
     
     func stopAudioKit() {
@@ -295,11 +297,15 @@ class SettingsViewController: UIViewController {
     
     func playNote(Note note: String, RaiseOctaveBy octaveMultiplier: Double) {
         stopAudioKitMicInput()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
-        notePlayer.amplitude = 0.2
+        if (playingNote) {
+            notePlayer.stop()
+        }
+        notePlayer.amplitude = 0.8
         notePlayer.frequency = getNotePlaybackFrequency(NoteString: note) * pow(2, octaveMultiplier)  // Raise by some number of octaves to make more audible
         AudioKit.output = notePlayer
-        startAudioKit()
         notePlayer.start()
+        startAudioKit()
+        
         playingNote = true
         audioKitIsInitialized = true
         print("Playing note using AudioKit")
@@ -307,7 +313,9 @@ class SettingsViewController: UIViewController {
     
     func stopPlayingNote() {
         stopAudioKit()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
-        notePlayer.stop()
+        if (playingNote) {
+            notePlayer.stop()
+        }
         audioKitIsInitialized = false
         print("Stopping AudioKit for note playing")
         initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)  // Restart AudioKit to enable audio input
@@ -324,6 +332,7 @@ class SettingsViewController: UIViewController {
                                                   selector: #selector(playCurrentNoteInPassword),
                                                   userInfo: nil,
                                                   repeats: true)
+        print(password)
     }
     
     func playCurrentNoteInPassword() {
@@ -361,6 +370,7 @@ class SettingsViewController: UIViewController {
             }
         alertController.addAction(OKAction)
         self.recordedNotes = []
+        self.password = []
         detectedNotesLabel.text = "Detected Notes:"
         recordingPassword = true
     }

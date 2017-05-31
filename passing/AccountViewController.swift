@@ -39,6 +39,17 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "accountInfo") {
+            if let destinationVC = segue.destination as? InfoViewController {
+                // Get the index of the account clicked on...
+                if let accIndex = accountTableView.indexPathForSelectedRow?.row {
+                    destinationVC.account = accounts[accIndex]
+                }
+            }
+        }
+    }
+    
     
     @IBAction func unwindSegueToAccountList(_ sender: UIStoryboardSegue) {
         // If pressed "Done", the user wants to add a new account to his/her list

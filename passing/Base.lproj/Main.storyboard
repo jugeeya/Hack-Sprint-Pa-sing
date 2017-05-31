@@ -332,7 +332,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="7Hx-Qh-ozB" kind="show" id="qTg-Qg-w4j"/>
+                                            <segue destination="7Hx-Qh-ozB" kind="show" identifier="accountInfo" id="qTg-Qg-w4j"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
