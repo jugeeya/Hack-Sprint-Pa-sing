@@ -32,7 +32,7 @@ class DummyViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if (CLEAR_FIRST_TIME_STATUS) {
+        if (!CLEAR_FIRST_TIME_STATUS) {
             
             if let firstTime = UserDefaults.standard.value(forKey: "firstTime") as? Bool {
                 if ( firstTime == false ) {
