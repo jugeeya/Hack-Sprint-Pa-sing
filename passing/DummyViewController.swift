@@ -18,7 +18,7 @@ class DummyViewController: UIViewController {
     // ##########################################
     // ##########################################
     // ##########################################
-    let CLEAR_FIRST_TIME_STATUS: Bool = false
+    let CLEAR_FIRST_TIME_STATUS: Bool = true
     // ##########################################
     // ##########################################
     // ##########################################
@@ -57,7 +57,8 @@ class DummyViewController: UIViewController {
             UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             UserDefaults.standard.synchronize()
             print("Cleared user defaults. firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime")))")
-            
+            performSegue(withIdentifier: "FirstTime", sender: nil)
+            print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
         }
         
     }

@@ -318,14 +318,14 @@ class SettingsViewController: UIViewController {
         }
         audioKitIsInitialized = false
         print("Stopping AudioKit for note playing")
-        initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)  // Restart AudioKit to enable audio input
+        //initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)  // Restart AudioKit to enable audio input
         playingNote = false
     }
     
     
     var pw_playingNoteIndex: Int = 0
     var timer_playPassword: Timer = Timer()
-    
+
     func playPassword(noteDuration: Double) {
         timer_playPassword = Timer.scheduledTimer(timeInterval: noteDuration,
                                                   target: self,
@@ -348,7 +348,6 @@ class SettingsViewController: UIViewController {
             timer_playPassword.invalidate()
         }
     }
-    
     
     var textPassword = ""
     
@@ -383,6 +382,8 @@ class SettingsViewController: UIViewController {
     
     @IBAction func playbackSongPassword(_ sender: UIButton) {
         
+        
+        
         if (recordingPassword) {
             
             let alertController = UIAlertController(title: "Save", message: "Please finish recording by pressing \"STOP\".", preferredStyle: UIAlertControllerStyle.alert)
@@ -401,7 +402,6 @@ class SettingsViewController: UIViewController {
                 alertController.addAction(OKAction)
             }
         }
-        
     }
     
     @IBAction func doneButton(_ sender: UIButton) {
