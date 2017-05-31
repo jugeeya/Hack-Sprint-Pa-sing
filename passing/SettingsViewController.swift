@@ -98,6 +98,9 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mic = AKMicrophone()
+        tracker = AKFrequencyTracker(mic)
+        silence = AKBooster(tracker, gain: 0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -222,13 +225,10 @@ class SettingsViewController: UIViewController {
     func initializeAudioKitForMicInput(timeBetweenNotes timeInterval: Double) {
         if (!self.audioKitIsInitialized) {
             AKSettings.audioInputEnabled = true
-            mic = AKMicrophone()
-            tracker = AKFrequencyTracker(mic)
-            silence = AKBooster(tracker, gain: 0)
             AudioKit.output = silence
-            AudioKit.start()
+            startAudioKit()
             audioKitIsInitialized = true
-            print("Initializing AudioKit")
+            print("Initializing AudioKit for mic input")
             timer_audioInputInterval = Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
                                                             target: self,
                                                             selector: #selector(ViewController.updateUI),
@@ -239,9 +239,21 @@ class SettingsViewController: UIViewController {
     
     func stopAudioKitMicInput() {
         timer_audioInputInterval.invalidate()
-        AudioKit.stop()
+        stopAudioKit()
         audioKitIsInitialized = false
         print("Stopping AudioKit for mic input")
+    }
+    
+    func stopAudioKit() {
+        if (audioKitIsInitialized) {
+            AudioKit.stop()
+        }
+    }
+    
+    func startAudioKit() {
+        if (!audioKitIsInitialized) {
+            AudioKit.start()
+        }
     }
     
     
@@ -277,7 +289,7 @@ class SettingsViewController: UIViewController {
         notePlayer.amplitude = 0.2
         notePlayer.frequency = getNotePlaybackFrequency(NoteString: note) * pow(2, octaveMultiplier)  // Raise by some number of octaves to make more audible
         AudioKit.output = notePlayer
-        AudioKit.start()
+        startAudioKit()
         notePlayer.start()
         playingNote = true
         audioKitIsInitialized = true
@@ -285,10 +297,10 @@ class SettingsViewController: UIViewController {
     }
     
     func stopPlayingNote() {
-        AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
+        stopAudioKit()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
         notePlayer.stop()
-        print("Stopping AudioKit for note playing")
         audioKitIsInitialized = false
+        print("Stopping AudioKit for note playing")
         initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)  // Restart AudioKit to enable audio input
         playingNote = false
     }

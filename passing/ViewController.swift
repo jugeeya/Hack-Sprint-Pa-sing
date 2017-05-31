@@ -30,23 +30,17 @@ class ViewController: UIViewController {
         }
         
     }
+    
     @IBAction func TextFieldEditingChanged(_ sender: UITextField) {
         
         
         print ("hello")
         Processed.text = process(toProcess: self.TerminalCommand.text!)
     }
-
- 
-    /*func textFieldDidChange(_textField: UITextField){
-        Processed.text = process(toProcess: self.TerminalCommand.text!)
-        print (Processed.text)
-    }
-    */
     
     @IBAction func playPasswordButton(_ sender: UIButton) {
-        if (!playingNote) {
-            playPassword()
+        if (!playingNote && audioKitIsInitialized) {
+            playPassword(noteDuration: 0.5)
         }
     }
     
@@ -63,6 +57,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mic = AKMicrophone()
+        tracker = AKFrequencyTracker(mic)
+        silence = AKBooster(tracker, gain: 0)
         
         initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)
         
@@ -88,6 +86,7 @@ class ViewController: UIViewController {
     let timeIntervalBetweenNoteSamples: Double = 0.05
     
     var playingNote: Bool = false
+    var audioKitIsInitialized: Bool = false
     let notePlayer: AKOscillator = AKOscillator()
     
     
@@ -170,11 +169,13 @@ class ViewController: UIViewController {
     
     func initializeAudioKitForMicInput(timeBetweenNotes timeInterval: Double) {
         AKSettings.audioInputEnabled = true
-        mic = AKMicrophone()
-        tracker = AKFrequencyTracker(mic)
-        silence = AKBooster(tracker, gain: 0)
+        //mic = AKMicrophone()
+        //tracker = AKFrequencyTracker(mic)
+        //silence = AKBooster(tracker, gain: 0)
         AudioKit.output = silence
-        AudioKit.start()
+        startAudioKit()
+        audioKitIsInitialized = true
+        print("Initializing AudioKit for mic input")
         timer_audioInputInterval = Timer.scheduledTimer(timeInterval: timeIntervalBetweenNoteSamples,
                              target: self,
                              selector: #selector(ViewController.updateUI),
@@ -184,7 +185,21 @@ class ViewController: UIViewController {
     
     func stopAudioKitMicInput() {
         timer_audioInputInterval.invalidate()
-        AudioKit.stop()
+        stopAudioKit()
+        audioKitIsInitialized = false
+        print("Stopping AudioKit for mic input")
+    }
+    
+    func stopAudioKit() {
+        if (audioKitIsInitialized) {
+            AudioKit.stop()
+        }
+    }
+    
+    func startAudioKit() {
+        if (!audioKitIsInitialized) {
+            AudioKit.start()
+        }
     }
     
     
@@ -220,14 +235,18 @@ class ViewController: UIViewController {
         notePlayer.amplitude = 0.2
         notePlayer.frequency = getNotePlaybackFrequency(NoteString: note) * pow(2, octaveMultiplier)  // Raise by some number of octaves to make more audible
         AudioKit.output = notePlayer
-        AudioKit.start()
+        startAudioKit()
         notePlayer.start()
         playingNote = true
+        audioKitIsInitialized = true
+        print("Playing note using AudioKit")
     }
     
     func stopPlayingNote() {
-        AudioKit.stop()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
+        stopAudioKit()  // Note: can stop AK as many times as needed, but can't start AK multiple times in a row without stopping
         notePlayer.stop()
+        audioKitIsInitialized = false
+        print("Stopping AudioKit for note playing")
         initializeAudioKitForMicInput(timeBetweenNotes: timeIntervalBetweenNoteSamples)  // Restart AudioKit to enable audio input
         playingNote = false
     }
@@ -236,8 +255,8 @@ class ViewController: UIViewController {
     var pw_playingNoteIndex: Int = 0
     var timer_playPassword: Timer = Timer()
     
-    func playPassword() {
-        timer_playPassword = Timer.scheduledTimer(timeInterval: 0.5,
+    func playPassword(noteDuration: Double) {
+        timer_playPassword = Timer.scheduledTimer(timeInterval: noteDuration,
                                                   target: self,
                                                   selector: #selector(playCurrentNoteInPassword),
                                                   userInfo: nil,
@@ -245,12 +264,16 @@ class ViewController: UIViewController {
     }
     
     func playCurrentNoteInPassword() {
-        playNote(Note: password[pw_playingNoteIndex], RaiseOctaveBy: 2)
-        pw_playingNoteIndex += 1
-        if (pw_playingNoteIndex >= password.count) {
+        if (password.count > 0) {
+            playNote(Note: password[pw_playingNoteIndex], RaiseOctaveBy: 2)
+            pw_playingNoteIndex += 1
+            if (pw_playingNoteIndex >= password.count) {
+                timer_playPassword.invalidate()
+                pw_playingNoteIndex = 0  // Reset index for next time password is played
+                Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(stopPlayingNote), userInfo: nil, repeats: false)  // Turn off last note after 0.5 seconds
+            }
+        } else {
             timer_playPassword.invalidate()
-            pw_playingNoteIndex = 0  // Reset index for next time password is played
-            Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(stopPlayingNote), userInfo: nil, repeats: false)  // Turn off last note after 0.5 seconds
         }
     }
     
