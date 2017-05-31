@@ -101,7 +101,16 @@ class SettingsViewController: UIViewController {
         mic = AKMicrophone()
         tracker = AKFrequencyTracker(mic)
         silence = AKBooster(tracker, gain: 0)
+        
+        // Hide the keyboard when user taps anywhere on the screen
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SettingsViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -352,6 +361,7 @@ class SettingsViewController: UIViewController {
             }
         alertController.addAction(OKAction)
         self.recordedNotes = []
+        detectedNotesLabel.text = "Detected Notes:"
         recordingPassword = true
     }
     @IBAction func stopRecordingPassword(_ sender: UIButton) {
@@ -362,22 +372,60 @@ class SettingsViewController: UIViewController {
     
     
     @IBAction func playbackSongPassword(_ sender: UIButton) {
-        if (!recordingPassword) {
-            playPassword(noteDuration: 0.5)
+        
+        if (recordingPassword) {
+            
+            let alertController = UIAlertController(title: "Save", message: "Please finish recording by pressing \"STOP\".", preferredStyle: UIAlertControllerStyle.alert)
+            self.present(alertController, animated: true, completion: nil)
+            let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in }
+            alertController.addAction(OKAction)
+            
+        } else {  // If not recording password currently...
+            
+            if (password.count > 0) {  // And the password recorded last had at least one note in it...
+                playPassword(noteDuration: 0.5)  // Play back the password!
+            } else {
+                let alertController = UIAlertController(title: "Song Password Creation", message: "No recognizable notes have been recorded yet. Please record a password by pressing RECORD and singing into the microphone.", preferredStyle: UIAlertControllerStyle.alert)
+                self.present(alertController, animated: true, completion: nil)
+                let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in }
+                alertController.addAction(OKAction)
+            }
         }
+        
     }
     
     @IBAction func doneButton(_ sender: UIButton) {
-        if (password.count > 0) {
-            UserDefaults.standard.set(false, forKey: "firstTime")
-            self.firstTime = false
-        } else {
-            let alertController = UIAlertController(title: "Song Password Creation", message: "No recognizable notes have been recorded yet. Please record a password by singing into the microphone.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        if (recordingPassword) {
+            
+            let alertController = UIAlertController(title: "Save", message: "Please finish recording by pressing \"STOP\".", preferredStyle: UIAlertControllerStyle.alert)
             self.present(alertController, animated: true, completion: nil)
-            let OKAction = UIAlertAction(title: "Okay", style:.default) { (action:UIAlertAction) in
-                self.initializeAudioKitForMicInput(timeBetweenNotes: 0.05)
-            }
+            let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in }
             alertController.addAction(OKAction)
+            
+        } else if (textPassword == "") {
+            
+            let alertController = UIAlertController(title: "Save", message: "Please enter a text password into the textfield to provide a secondary means of accessing your account.", preferredStyle: UIAlertControllerStyle.alert)
+            self.present(alertController, animated: true, completion: nil)
+            let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in }
+            alertController.addAction(OKAction)
+            
+        } else if (password.count == 0) {
+            
+            let alertController = UIAlertController(title: "Save", message: "No recognizable notes have been recorded yet. Please record a password by pressing RECORD and singing into the microphone.", preferredStyle: UIAlertControllerStyle.alert)
+            self.present(alertController, animated: true, completion: nil)
+            let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in }
+            alertController.addAction(OKAction)
+            
+        } else {  // If valid password was recorded and text password was specified and the user is not currently recording...
+            
+            self.firstTime = false
+            UserDefaults.standard.set(false, forKey: "firstTime")
+            UserDefaults.standard.set(password, forKey: "password")
+            UserDefaults.standard.set(textPassword, forKey: "textPassword")
+            print("Password = \(String(describing: UserDefaults.standard.value(forKey:"password")))")
+            print("Text Password = \(String(describing: UserDefaults.standard.value(forKey:"textPassword")))")
+            
         }
     }
 }

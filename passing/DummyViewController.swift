@@ -14,6 +14,16 @@ class DummyViewController: UIViewController {
     
     var isUsersFirstTime: Bool = true
     
+    // ##########################################
+    // ##########################################
+    // ##########################################
+    // ##########################################
+    let CLEAR_FIRST_TIME_STATUS: Bool = true
+    // ##########################################
+    // ##########################################
+    // ##########################################
+    // ##########################################
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,29 +31,34 @@ class DummyViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        /*
-        if let firstTime = UserDefaults.standard.value(forKey: "firstTime") as? Bool {
-            if ( firstTime == false ) {
-                self.isUsersFirstTime = false
-                performSegue(withIdentifier: "NotFirstTime", sender: nil)
-                print("Performing segue from DummyVC to main VC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
+        
+        if (CLEAR_FIRST_TIME_STATUS) {
+            
+            if let firstTime = UserDefaults.standard.value(forKey: "firstTime") as? Bool {
+                if ( firstTime == false ) {
+                    self.isUsersFirstTime = false
+                    performSegue(withIdentifier: "NotFirstTime", sender: nil)
+                    print("Performing segue from DummyVC to main VC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
+                } else {
+                    self.isUsersFirstTime = true
+                    performSegue(withIdentifier: "FirstTime", sender: nil)
+                    print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
+                }
             } else {
-                UserDefaults.standard.set(false, forKey: "firstTime")
                 self.isUsersFirstTime = true
+                UserDefaults.standard.set(true, forKey: "firstTime")
                 performSegue(withIdentifier: "FirstTime", sender: nil)
                 print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
             }
+            
         } else {
-            UserDefaults.standard.set(false, forKey: "firstTime")
-            performSegue(withIdentifier: "FirstTime", sender: nil)
-            print("Performing segue from DummyVC to SettingsVC (key firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime"))))")
-        }*/
-        
-        /* Remove any and all user defaults previously added: */
-          UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-          UserDefaults.standard.synchronize()
-          print("Cleared user defaults. firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime")))")
-        performSegue(withIdentifier: "NotFirstTime", sender: nil)
+            
+            /* Remove any and all user defaults previously added: (i.e. firstTime status, password, and textPassword) */
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            UserDefaults.standard.synchronize()
+            print("Cleared user defaults. firstTime = \(String(describing: UserDefaults.standard.value(forKey: "firstTime")))")
+            
+        }
         
     }
     
