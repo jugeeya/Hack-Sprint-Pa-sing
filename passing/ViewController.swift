@@ -8,35 +8,10 @@ class ViewController: UIViewController {
     var firstTime: Bool = true;
     
     
-    @IBOutlet weak var Processed: UILabel!
-    @IBOutlet weak var passwordStatusLabel: UILabel!
     @IBOutlet weak var amplitudeLabel: UILabel!
     @IBOutlet weak var detectedNotesLabel: UILabel!
     
-    @IBOutlet weak var TerminalCommand: UITextField!
-    
-    @IBOutlet weak var theButton: UIButton!
-    @IBAction func showAlert(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Password Creation", message: "Press 'OK' and sing using the microphone", preferredStyle: UIAlertControllerStyle.alert)
-        self.present(alertController, animated: true, completion: nil)
-        let OKAction = UIAlertAction(title: "OK", style:.default) { (action:UIAlertAction) in
-            print("You've pressed OK button");}
-        alertController.addAction(OKAction)
-        if (firstTime)//global var
-        {
-            firstTime = false;
-            theButton.isHidden = true;
-
-        }
-        
-    }
-    
-    @IBAction func TextFieldEditingChanged(_ sender: UITextField) {
-        
-        
-        print ("hello")
-        Processed.text = process(toProcess: self.TerminalCommand.text!)
-    }
+  
     
     @IBAction func playPasswordButton(_ sender: UIButton) {
         if (!playingNote && audioKitIsInitialized) {
@@ -155,7 +130,7 @@ class ViewController: UIViewController {
                 // Check the recorded notes and see if they match the password
                 let passwordCorrect: Bool = checkPassword(thresholdPercentCorrect: 1.0)
                 if (passwordCorrect) {
-                    passwordStatusLabel.text = "Password: CORRECT!"
+        
                     performSegue(withIdentifier: "passwordAccepted", sender: nil)
                 }
                 

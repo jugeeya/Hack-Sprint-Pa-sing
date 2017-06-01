@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zkP-yi-HDM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zkP-yi-HDM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -191,33 +191,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDO-F6-tZ5">
-                                <rect key="frame" x="23" y="20" width="11" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.95225311448788053" green="1" blue="0.96226598190724699" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kyp-ea-lE0">
-                                <rect key="frame" x="50" y="17" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="TerminalCommand:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="tRI-f2-wIi"/>
-                                    <action selector="TextFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="xcm-R5-mw0"/>
-                                    <action selector="TextFieldEditingDidChange:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="6ym-az-Jfn"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bmr-1o-y8O">
-                                <rect key="frame" x="168" y="138" width="39" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Begin"/>
-                                <connections>
-                                    <action selector="showAlert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="N2g-sf-7Lv"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detected Notes List: " textAlignment="natural" lineBreakMode="headTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZD-RW-R9i">
                                 <rect key="frame" x="16" y="416" width="343" height="91"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -233,33 +206,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBC-2O-fO3">
-                                <rect key="frame" x="116" y="237" width="142" height="30"/>
+                                <rect key="frame" x="116" y="154" width="142" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Play Password"/>
                                 <connections>
                                     <action selector="playPasswordButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c6e-rJ-Fkc"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password: Incorrect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faA-ih-TzD">
-                                <rect key="frame" x="48" y="307" width="278" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8g-bk-70Q">
-                                <rect key="frame" x="137" y="176" width="100" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHS-Op-swy">
-                                <rect key="frame" x="34" y="269" width="307" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Play Reference Pitch (First note of password)"/>
-                                <connections>
-                                    <action selector="playFirstNoteOfPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gmh-7J-gAf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-Kp-EP5">
@@ -270,17 +221,21 @@
                                     <segue destination="E31-7K-kLJ" kind="show" identifier="passwordAccepted" id="jdE-xX-Avr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHS-Op-swy">
+                                <rect key="frame" x="34" y="210" width="307" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Play Reference Pitch (First note of password)"/>
+                                <connections>
+                                    <action selector="playFirstNoteOfPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gmh-7J-gAf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <outlet property="DetectedNotesLabel" destination="rZD-RW-R9i" id="scx-R3-qUg"/>
-                        <outlet property="Processed" destination="f8g-bk-70Q" id="onu-yd-CW2"/>
-                        <outlet property="TerminalCommand" destination="Kyp-ea-lE0" id="VmJ-Vo-LUA"/>
                         <outlet property="amplitudeLabel" destination="b94-b2-3wJ" id="Oi9-nn-HSj"/>
                         <outlet property="detectedNotesLabel" destination="rZD-RW-R9i" id="tOl-Lz-HTn"/>
-                        <outlet property="passwordStatusLabel" destination="faA-ih-TzD" id="BVA-WT-Z9F"/>
-                        <outlet property="theButton" destination="Bmr-1o-y8O" id="D6z-Za-Y9Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -303,30 +258,38 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="7Lc-oI-Dkg">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="nYJ-Iy-EPT" id="CGk-PV-sLB"/>
+                                    </connections>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="accountCell" textLabel="0Y9-Me-fw3" detailTextLabel="NCr-Mk-khx" imageView="xJI-HC-gTY" style="IBUITableViewCellStyleSubtitle" id="IZr-fd-eGT">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IZr-fd-eGT" id="czq-xH-2ND">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Account Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Y9-Me-fw3">
-                                                    <rect key="frame" x="73" y="4" width="106" height="21"/>
+                                                    <rect key="frame" x="74" y="5" width="105.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NCr-Mk-khx">
-                                                    <rect key="frame" x="73" y="25" width="58" height="15"/>
+                                                    <rect key="frame" x="74" y="25.5" width="58" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="DefaultAccountIcon" id="xJI-HC-gTY">
-                                                    <rect key="frame" x="15" y="0.0" width="43" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="44" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -343,9 +306,10 @@
                     <navigationItem key="navigationItem" id="JnT-4h-z1e">
                         <nil key="title"/>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bVH-dl-pcU">
-                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <rect key="frame" x="116.5" y="10" width="152" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Print # of Accounts"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                            <state key="normal" title="Accounts"/>
                             <connections>
                                 <action selector="printAccountNumButton:" destination="nYJ-Iy-EPT" eventType="touchUpInside" id="bHR-pz-kHf"/>
                             </connections>
@@ -358,9 +322,27 @@
                     </navigationItem>
                     <connections>
                         <outlet property="accountTableView" destination="jTj-os-7bD" id="RWH-VU-6up"/>
+                        <outlet property="searchDisplayController" destination="KLe-pR-g2t" id="9cg-KU-f68"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LT7-fc-r5k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="7m9-o5-aSC">
+                    <connections>
+                        <outlet property="delegate" destination="nYJ-Iy-EPT" id="qiC-xr-OV9"/>
+                        <outlet property="searchContentsController" destination="nYJ-Iy-EPT" id="dru-Wp-2wN"/>
+                        <outlet property="searchResultsDataSource" destination="nYJ-Iy-EPT" id="GJT-6g-pNG"/>
+                        <outlet property="searchResultsDelegate" destination="nYJ-Iy-EPT" id="kLd-ts-i5D"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="KLe-pR-g2t">
+                    <connections>
+                        <outlet property="delegate" destination="nYJ-Iy-EPT" id="cub-4d-0vX"/>
+                        <outlet property="searchBar" destination="7Lc-oI-Dkg" id="pMj-jH-Vps"/>
+                        <outlet property="searchContentsController" destination="nYJ-Iy-EPT" id="bEI-zw-gOb"/>
+                        <outlet property="searchResultsDataSource" destination="nYJ-Iy-EPT" id="XiH-vn-TIA"/>
+                        <outlet property="searchResultsDelegate" destination="nYJ-Iy-EPT" id="zjj-gM-tQr"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="653.60000000000002" y="520.38980509745136"/>
         </scene>
@@ -400,7 +382,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gAC-ZH-Ow7" id="ga2-du-8Af">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Account Info..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rl6-tu-SDT">
@@ -518,7 +500,7 @@
         <image name="blackScreen" width="1366" height="738"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aBo-PM-z4g"/>
+        <segue reference="jdE-xX-Avr"/>
         <segue reference="qTg-Qg-w4j"/>
     </inferredMetricsTieBreakers>
 </document>
